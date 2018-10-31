@@ -1,0 +1,76 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+.is-modal-show{
+	overflow-y: hidden;
+}
+.modal-contents{
+	display: none;
+}
+.modal-window{
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow: auto;
+	z-index: 101;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	cursor: pointer;
+
+}
+/*overlayを敷くとスクロールできなくなる*/
+.modal__overlay{
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow: auto;
+	
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: 0.5;
+}
+
+.modal__body{
+	position: relative;
+	background: #fff;
+	width: 600px;
+	left: 50%;
+	margin-left: -300px;
+	cursor: default;
+	top:50%;
+	-webkit-transform: translate(0,-50%);
+	-moz-transform: translate(0,-50%);
+	-ms-transform: translate(0,-50%);
+	-o-transform: translate(0,-50%);
+	transform: translate(0,-50%);
+}
+
+.is-modal-overflow-window .modal__body{
+	top:0 !important;
+	-webkit-transform: translate(0,0);
+	-moz-transform: translate(0,0);
+	-ms-transform: translate(0,0);
+	-o-transform: translate(0,0);
+	transform: translate(0,0);
+}
+
+.modal-youtube-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+}
+
+.modal-youtube-container iframe{
+	position: absolute;
+  top: 0;
+  right: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+.modal-type-image img{
+	width: 100%;
+	height: auto;
+}
