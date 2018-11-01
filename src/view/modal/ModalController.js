@@ -256,7 +256,7 @@ class ModalController{
 
 }
 
-ModalController.htmlString = 
+ModalController.htmlString = "";
 
 ModalController.AJAX = "ajax";
 ModalController.DOM = "dom";
