@@ -1,5 +1,5 @@
 class ModalLoader{
-	constructor(options){
+	constructor(options=null){
 		this.options = options;
 	}
 	getContents(target,callback){

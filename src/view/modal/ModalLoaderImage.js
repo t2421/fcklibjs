@@ -1,7 +1,7 @@
 import {ModalLoader} from "./ModalLoader.js"
 class ModalLoaderImage extends ModalLoader {
-	constructor(options){
-		this.options = options;
+	constructor(options=null){
+		super(options);
 	}
 	getContents(target,callback){
 		super.getContents(target,callback);

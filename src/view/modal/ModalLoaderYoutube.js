@@ -1,7 +1,7 @@
 import {ModalLoader} from "./ModalLoader.js"
 class ModalLoaderYoutube extends ModalLoader {
-	constructor(options){
-		this.options = options;
+	constructor(options=null){
+		super(options);
 	}
 	getContents(target,callback){
 		super.getContents(target,callback);
@@ -13,8 +13,6 @@ class ModalLoaderYoutube extends ModalLoader {
 		console.log(contents)
 		callback(contents);
 	}
-
-	
 }
 
 export {ModalLoaderYoutube}

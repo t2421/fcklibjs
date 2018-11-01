@@ -1,7 +1,7 @@
 import {ModalLoader} from "./ModalLoader.js"
 class ModalLoaderAjax extends ModalLoader {
 	constructor(options){
-		this.options = options;
+		super(options);
 	}
 	getContents(target,callback){
 		super.getContents(target,callback);
@@ -13,6 +13,7 @@ class ModalLoaderAjax extends ModalLoader {
 		.done((data)=> {
 			
 			const contents = $('<div></div>').append(data).find(this.options.container).html();
+			console.log(contents)
 			callback(contents);
 			this._loadComplete();
 		})

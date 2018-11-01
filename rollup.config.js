@@ -9,7 +9,8 @@ export default [
 		output: {
 			name: 'fcklib',
 			file: pkg.browser,
-			format: 'umd'
+			format: 'umd',
+			sourcemap:'inline'
 		},
 		plugins: [
 			resolve(), // so Rollup can find `ms`
