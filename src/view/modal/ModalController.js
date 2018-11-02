@@ -12,7 +12,8 @@ class ModalController{
 		var defaults = {
 			pagerTarget:'.modal__body',
 			close:'<a class="modal-close">CLOSE</a>',
-			closeInsert:false
+			closeInsert:false,
+			outerClass:''
 		}
 
 		this.settings = $.extend({}, defaults, options);
@@ -168,7 +169,7 @@ class ModalController{
 			return false;
 		})
 
-		$('.modal-window').css("opacity",0).animate({
+		$('.modal-window').addClass(this.settings.outerClass).css("opacity",0).animate({
 			opacity:1
 		},500,()=>{
 			$(document).trigger("modalShowComplete");
