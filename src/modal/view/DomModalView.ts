@@ -6,13 +6,21 @@ export default class DomModalView implements ModalView{
         this.config = config;
     }
 
-    getView(callback:Function):void{
-        const html = $(this.config.src).html();
-        setTimeout(()=>{
-            $(this).trigger('modalViewLoadComplete');
-            callback(html);
-        },0);
+    getView():Promise<string>{
+        
+        return new Promise(
+        (resolve: (value?:string) => void, reject: () => void) => {
+            console.log(this)
+            const html = $(this.config.src).html();
+            
+            setTimeout(()=>{
+                
+                $(this).trigger('modalViewLoadComplete');
+                resolve(html);
+            },0);
+        });
     }
+    
     show():void{
 
     }

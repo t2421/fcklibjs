@@ -1,22 +1,34 @@
 import Modal from "../src/modal/Modal"
 const $ = require('jquery');
 
-describe("Modal test", () => {
+describe("Modal show test", () => {
   
   const modal = new Modal();
   
   it("show modal", () => {
     setHtml();
+    
     $('.js-modal').on('click',function(this:HTMLElement){
       $(modal).on('modalShowComplete',()=>{
-        expect($('.modal__contents').text()).toBe("Dom Inner");
+        console.log("showwwwwwww")
       })
       modal.show($(this));
-      expect($('.modal-window').length).toBe(1);
+      
+      
+    
     })
+    expect($('.modal__contents').text()).toBe("Dom Inner");
+        expect($('.modal-window').length).toBe(1);
     $('#modal-3').click();
   })
+})
 
+
+
+describe("Modal hide test", () => {
+  
+  const modal = new Modal();
+  
   it("hide modal", () => {
     setHtml();
     $('.js-modal').on('click',function(this:HTMLElement){
@@ -24,10 +36,10 @@ describe("Modal test", () => {
       $('.modal__close').click();
       expect($('.modal-window').length).toBe(0);
     })
-    $('#modal-1').click();
+    $('#modal-3').click();
   })
-
 })
+
 
 
 function setHtml(){
