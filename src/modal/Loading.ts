@@ -1,3 +1,4 @@
+const $ = require("jquery")
 export default class Loading{
     private html:string = ``;
     constructor(){

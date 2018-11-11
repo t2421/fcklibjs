@@ -1,46 +1,33 @@
 import Modal from "../src/modal/Modal"
 const $ = require('jquery');
 
-describe("Modal show test", () => {
-  
+test("Modal Show test", (done) => {
   const modal = new Modal();
-  
-  it("show modal", () => {
-    setHtml();
-    
-    $('.js-modal').on('click',function(this:HTMLElement){
-      $(modal).on('modalShowComplete',()=>{
-        console.log("showwwwwwww")
-      })
-      modal.show($(this));
-      
-      
-    
+  setHtml();
+  $('.js-modal').on('click',function(this:HTMLElement){
+    $(modal).on('modalShowComplete',()=>{
+      expect($('.modal__contents').text()).toBe("Dom Inner");
+      done();
     })
-    expect($('.modal__contents').text()).toBe("Dom Inner");
-        expect($('.modal-window').length).toBe(1);
-    $('#modal-3').click();
+    modal.show($(this));
+    
+    expect($('.modal-window').length).toBe(1);
+  
   })
+  $('#modal-3').click();
 })
 
-
-
-describe("Modal hide test", () => {
-  
+test("Modal Hide test", (done) => {
   const modal = new Modal();
-  
-  it("hide modal", () => {
-    setHtml();
-    $('.js-modal').on('click',function(this:HTMLElement){
-      modal.show($(this));
-      $('.modal__close').click();
-      expect($('.modal-window').length).toBe(0);
-    })
-    $('#modal-3').click();
+  setHtml();
+  $('.js-modal').on('click',function(this:HTMLElement){
+    modal.show($(this));
+    $('.modal__close').click();
+    expect($('.modal-window').length).toBe(0);
+    done();
   })
-})
-
-
+  $('#modal-1').click();
+});
 
 function setHtml(){
   document.body.innerHTML = `
