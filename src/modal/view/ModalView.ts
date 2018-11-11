@@ -1,3 +1,3 @@
 export default interface ModalView{
-    getView(callback:Function):void;
+    getView():Promise<string>;
 }
