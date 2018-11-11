@@ -36,7 +36,11 @@ export default class Modal{
     }
 
     hide(){
-        $('.modal-window').remove();
+        $(this).trigger("modalCloseStart");
+        setTimeout(()=>{
+            $('.modal-window').remove();
+            $(this).trigger("modalCloseComplete");
+        },0)
     }
     
    

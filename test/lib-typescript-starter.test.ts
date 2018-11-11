@@ -2,6 +2,7 @@ import Modal from "../src/modal/Modal"
 const $ = require('jquery');
 
 test("Modal Show test", (done) => {
+  expect.assertions(2);
   const modal = new Modal();
   setHtml();
   $('.js-modal').on('click',function(this:HTMLElement){
@@ -18,11 +19,14 @@ test("Modal Show test", (done) => {
 })
 
 test("Modal Hide test", (done) => {
+  expect.assertions(1);
   const modal = new Modal();
   setHtml();
   $('.js-modal').on('click',function(this:HTMLElement){
     modal.show($(this));
     $('.modal__close').click();
+  })
+  $(modal).on('modalCloseComplete',()=>{
     expect($('.modal-window').length).toBe(0);
     done();
   })
