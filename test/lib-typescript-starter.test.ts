@@ -6,7 +6,7 @@ test("Modal Show test", (done) => {
   const modal = new Modal();
   setHtml();
   $('.js-modal').on('click',function(this:HTMLElement){
-    $(modal).on('modalShowComplete',()=>{
+    modal.on('modalShowComplete',()=>{
       expect($('.modal__contents').text()).toBe("Dom Inner");
       done();
     })
@@ -26,7 +26,7 @@ test("Modal Hide test", (done) => {
     modal.show($(this));
     $('.modal__close').click();
   })
-  $(modal).on('modalCloseComplete',()=>{
+  modal.on('modalCloseComplete',()=>{
     expect($('.modal-window').length).toBe(0);
     done();
   })

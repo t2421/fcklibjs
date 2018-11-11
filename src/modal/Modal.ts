@@ -1,13 +1,14 @@
 import ModalView from './view/ModalView';
 import ModalViewFactory from './view/ModalViewFactory';
 import Loading from './Loading';
+import {EventEmitter} from 'events';
 
 const $ = require('jquery');
-export default class Modal{
+export default class Modal extends EventEmitter{
     private modalView!:ModalView;
     private loading:Loading = new Loading();
     constructor(){
-        
+        super();
     }
     
     show(dom:JQuery){
@@ -23,7 +24,7 @@ export default class Modal{
     }
 
     private async setView(){
-       
+        this.emit("modalShowStart");
         $('.modal__body').append(this.loading.getHtml());
         console.log("callll")
         
@@ -32,14 +33,14 @@ export default class Modal{
         
         this.loading.remove();
         
-        $(this).trigger("modalShowComplete");
+        this.emit("modalShowComplete");
     }
 
     hide(){
         $(this).trigger("modalCloseStart");
         setTimeout(()=>{
             $('.modal-window').remove();
-            $(this).trigger("modalCloseComplete");
+            this.emit("modalCloseComplete");
         },0)
     }
     
