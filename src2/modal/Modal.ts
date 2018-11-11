@@ -1,9 +1,18 @@
-import ModalView from './ModalView';
-import ModalViewFactory from './ModalViewFactory';
+import ModalView from './view/ModalView';
+import ModalViewFactory from './view/ModalViewFactory';
 
 export default class Modal{
-    private modalView:ModalView;
     constructor(){
-        this.modalView = ModalViewFactory.create();
+
+    }
+    
+    show(dom:HTMLElement){
+
+    }
+    hide(){
+
+    }
+    getView(dom:HTMLElement){
+        
     }
 }

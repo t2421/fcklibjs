@@ -1,8 +1,10 @@
 import ModalView from './ModalView';
 
+
 export default class DomModalView implements ModalView{
-    constructor(){
-        
+    private config;
+    constructor(config){
+        this.config = config;
     }
     show(){
         console.log("show");
