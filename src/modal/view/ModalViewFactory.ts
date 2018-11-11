@@ -3,25 +3,31 @@ import DomModalView from './DomModalView';
 
 export default class ModalViewFactory{
     static createConfig(dom:HTMLElement){
-        // if(dom.dataset["group"]){
-        //     let config = {
-        //         "group":dom.dataset["group"],
-        //         "list":[]
-        //     }
-        //     let nodeList:NodeList = document.querySelectorAll(`[data-group=${dom.dataset["group"]}]`);
-        //     nodeList.forEach(element =>{
-        //         let dom:HTMLElement = element as HTMLElement;
-        //         config.list.push({
-        //             "type":dom.dataset["type"],
-        //             "src":dom.dataset["src"]
-        //         })
-        //     })
-        // }
-        return {
-            "type":dom.dataset["type"],
-            "src":dom.dataset["src"]
+        var config:any = {};
+        if(dom.dataset["group"]){
+            config = {
+                "group":dom.dataset["group"],
+                "list":[]
+            }
+            let nodeList:NodeList = document.querySelectorAll(`[data-group=${dom.dataset["group"]}]`);
+            nodeList.forEach(element =>{
+                let dom:HTMLElement = element as HTMLElement;
+                let childConfig = {
+                    "type":dom.dataset["type"],
+                    "src":dom.dataset["src"]
+                }
+                config["list"].push(childConfig)
+            })
+            return config;
+        }else{
+            config = {
+                "type":dom.dataset["type"],
+                "src":dom.dataset["src"]
+            }
         }
+        return config;
     }
+    
     static create(dom:HTMLElement){
         const config = ModalViewFactory.createConfig(dom);
         return ModalViewFactory.createView(config);
