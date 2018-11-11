@@ -1,31 +1,26 @@
 import ModalView from './ModalView';
 import DomModalView from './DomModalView';
+import ModalConfig from '../ModalConfig';
+
 const $ = require('jquery');
 
 export default class ModalViewFactory{
     
     static createConfig(dom:JQuery){
-        var config:any = {};
+        var config!:ModalConfig;
+
         if(dom.data('group')){
-            config = {
-                "group":dom.data("group"),
-                "list":[]
-            }
-            let list:JQuery = $(`[data-group=${dom.data('group')}]`);
-            list.each((el,index)=> {
-                let childConfig = {
-                    "type":dom.data('type'),
-                    "src":dom.data('src')
-                }
-                config["list"].push(childConfig)
-            })
-           
+            config = new ModalConfig(
+                dom.data('type'),
+                dom.data('src'),
+                dom.data('group')
+            )
             return config;
         }else{
-            config = {
-                "type":dom.data('type'),
-                "src":dom.data('src')
-            }
+            config = new ModalConfig(
+                dom.data('type'),
+                dom.data('src')
+            )
         }
         return config;
     }
