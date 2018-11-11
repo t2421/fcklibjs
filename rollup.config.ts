@@ -7,7 +7,7 @@ import json from 'rollup-plugin-json'
 
 const pkg = require('./package.json')
 
-const libraryName = 'lib-typescript-starter'
+const libraryName = 'fcklibjs'
 
 export default {
   input: `src/${libraryName}.ts`,

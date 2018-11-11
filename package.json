@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/lib-typescript-starter.umd.js",
-  "module": "dist/lib-typescript-starter.es5.js",
-  "typings": "dist/types/lib-typescript-starter.d.ts",
+  "main": "dist/fcklibjs.umd.js",
+  "module": "dist/fcklibjs.es5.js",
+  "typings": "dist/types/fcklibjs.d.ts",
   "files": [
     "dist"
   ],
