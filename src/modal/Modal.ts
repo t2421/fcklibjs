@@ -12,7 +12,7 @@ export default class Modal extends EventEmitter{
     }
     
     show(dom:JQuery){
-       
+        this.emit("modalShowStart");
         this.modalView = ModalViewFactory.create(dom);
         $('body').append(this._getContainer());
         
@@ -21,23 +21,22 @@ export default class Modal extends EventEmitter{
         })
         
         this.setView();
+        
     }
 
     private async setView(){
-        this.emit("modalShowStart");
-        $('.modal__body').append(this.loading.getHtml());
-        console.log("callll")
         
+        $('.modal__body').append(this.loading.getHtml());        
         const html = await this.modalView.getView();
         $('.modal__contents').html(html);
         
         this.loading.remove();
-        
         this.emit("modalShowComplete");
+        
     }
 
     hide(){
-        $(this).trigger("modalCloseStart");
+        this.emit("modalCloseStart");
         setTimeout(()=>{
             $('.modal-window').remove();
             this.emit("modalCloseComplete");
