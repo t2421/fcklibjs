@@ -1,4 +1,3 @@
 export default interface ModalView{
-    show():void;
-    hide():void;
+    getView(callback:Function):void;
 }

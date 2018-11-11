@@ -1,16 +1,20 @@
 import ModalView from './ModalView';
-
-
+const $ = require('jquery');
 export default class DomModalView implements ModalView{
-    private config:Object;
-    constructor(config:Object){
+    private config:any;
+    constructor(config:any){
         this.config = config;
     }
-    show(){
-        console.log("show");
+
+    getView(callback:Function):void{
+        const html = $(this.config.src).html();
+        setTimeout(()=>{
+            $(this).trigger('modalViewLoadComplete');
+            callback(html);
+        },0);
+    }
+    show():void{
+
     }
 
-    hide(){
-        console.log("hide");
-    }
 }

@@ -1,50 +1,44 @@
-import Modal from "../src/modal/view/ModalViewFactory"
+import Modal from "../src/modal/Modal"
+const $ = require('jquery');
 
-import $ from "jquery";
-import ModalViewFactory from "../src/modal/view/ModalViewFactory";
-
-console.log($);
-/**
- * Dummy test
- */
-describe("ModalViewFactory test", () => {
-  it("create multiple modal config", () => {
-    const $ = require('jquery');
-    document.body.innerHTML = `
-        <a href="#" class="js-modal" data-type="youtube" data-src="hogehoge">youtube</a>
-        <a href="#" class="js-modal" data-type="image" data-src="hogehoge">image</a>
-        <a href="#" class="js-modal" data-type="dom" data-src="hogehoge">dom</a>
-        <a href="#" class="js-modal" data-type="ajax" data-src="hogehoge">ajax</a>
-        <a href="#" class="js-modal" data-group="group1" data-type="ajax" data-src="hogehoge">ajax</a>
-        <a href="#" class="js-modal" data-group="group1" data-type="dom" data-src="hogehoge">dom</a>
-        <a href="#" class="js-modal" data-group="group1" data-type="image" data-src="hogehoge">image</a>
-    `
-
+describe("Modal test", () => {
+  
+  const modal = new Modal();
+  
+  it("show modal", () => {
+    setHtml();
     $('.js-modal').on('click',function(this:HTMLElement){
-      let config:any = ModalViewFactory.createConfig(this);
-      if(config["type"]=="multiple"){
-        expect(config["list"].length).toBe(3);
-      }
+      $(modal).on('modalShowComplete',()=>{
+        expect($('.modal__contents').text()).toBe("Dom Inner");
+      })
+      modal.show($(this));
+      expect($('.modal-window').length).toBe(1);
     })
-    $('.js-modal').click();
+    $('#modal-3').click();
+  })
 
-    
+  it("hide modal", () => {
+    setHtml();
+    $('.js-modal').on('click',function(this:HTMLElement){
+      modal.show($(this));
+      $('.modal__close').click();
+      expect($('.modal-window').length).toBe(0);
+    })
+    $('#modal-1').click();
   })
 
 })
 
-// test('displays a user after a click', () => {
-//   // Set up our document body
-//   document.body.innerHTML =
-//     '<div>' +
-//     '  <span id="username" />' +
-//     '  <button id="button" />' +
-//     '</div>';
 
-  
-//   const $ = require('jquery');
- 
-//   // Use jquery to emulate a click on our button
-//   $('#button').click();
-
-// });
+function setHtml(){
+  document.body.innerHTML = `
+  <a href="#" id="modal-1" class="js-modal" data-type="youtube" data-src="hogehoge">youtube</a>
+  <a href="#" id="modal-2" class="js-modal" data-type="image" data-src="hogehoge">image</a>
+  <a href="#" id="modal-3" class="js-modal" data-type="dom" data-src="#domwrapper">dom</a>
+  <a href="#" id="modal-4" class="js-modal" data-type="ajax" data-src="hogehoge">ajax</a>
+  <a href="#" id="modal-5" class="js-modal" data-group="group1" data-type="ajax" data-src="hogehoge">ajax</a>
+  <a href="#" id="modal-6" class="js-modal" data-group="group1" data-type="dom" data-src="hogehoge">dom</a>
+  <a href="#" id="modal-7" class="js-modal" data-group="group1" data-type="image" data-src="hogehoge">image</a>
+  <div id="domwrapper">Dom Inner</div>
+`
+}
