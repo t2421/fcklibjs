@@ -2,10 +2,11 @@ import ModalView from './view/ModalView';
 import ModalViewFactory from './view/ModalViewFactory';
 import Loading from './Loading';
 import {EventEmitter} from 'events';
+import axiosbase from 'axios';
+
 
 const $ = require('jquery');
 export default class Modal extends EventEmitter{
-    private modalView!:ModalView;
     private modalViewList:Array<ModalView>=[];
     private loading:Loading = new Loading();
     private currentIndex:number = 0;

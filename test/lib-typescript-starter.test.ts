@@ -2,7 +2,10 @@ import Modal from "../src/modal/Modal"
 import {Info} from "../src/modal/Modal"
 const $ = require('jquery');
 
+
 test("Modal Show test", (done) => {
+
+
   expect.assertions(2);
   const modal = new Modal();
   setHtml();
@@ -52,12 +55,25 @@ test("Modal Multi init test", (done) => {
 })
 
 
+// test("Modal Ajax test", (done) => {
+ 
+//   const modal = new Modal();
+//   setHtml();
+//   $('.js-modal').on('click',function(this:HTMLElement){
+//     modal.on('modalShowComplete',()=>{
+//       done();
+//     })
+//     modal.show($(this));
+//   })
+//   $('#modal-4').click();
+// })
+
 function setHtml(){
   document.body.innerHTML = `
   <a href="#" id="modal-1" class="js-modal" data-type="youtube" data-src="hogehoge">youtube</a>
   <a href="#" id="modal-2" class="js-modal" data-type="image" data-src="hogehoge">image</a>
   <a href="#" id="modal-3" class="js-modal" data-type="dom" data-src="#domwrapper">dom</a>
-  <a href="#" id="modal-4" class="js-modal" data-type="ajax" data-src="hogehoge">ajax</a>
+  <a href="#" id="modal-4" class="js-modal" data-type="ajax" data-src="../test.json">ajax</a>
   <a href="#" id="modal-5" class="js-modal" data-group="group1" data-type="ajax" data-src="hogehoge">ajax</a>
   <a href="#" id="modal-6" class="js-modal" data-group="group1" data-type="dom" data-src="#domwrapper2">dom</a>
   <a href="#" id="modal-7" class="js-modal" data-group="group1" data-type="image" data-src="hogehoge">image</a>

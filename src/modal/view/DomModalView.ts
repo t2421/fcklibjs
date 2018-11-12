@@ -15,5 +15,4 @@ export default class DomModalView implements ModalView{
             },0);
         });
     }
-
 }

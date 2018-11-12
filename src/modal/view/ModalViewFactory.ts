@@ -1,6 +1,8 @@
 import ModalView from './ModalView';
 import DomModalView from './DomModalView';
+import AjaxModalView from './AjaxModalView';
 import ModalConfig from '../ModalConfig';
+import ModalType from './ModalType';
 
 const $ = require('jquery');
 
@@ -30,7 +32,14 @@ export default class ModalViewFactory{
         return ModalViewFactory.createView(config);
 
     }
-    static createView(config:any):ModalView{
-        return new DomModalView(config);
+    static createView(config:ModalConfig):ModalView{
+        switch(config.type){
+            case ModalType.ajax:
+            return new AjaxModalView(config);
+            case ModalType.dom:
+            return new DomModalView(config);
+            default:
+            return new DomModalView(config);
+        }
     }
 }
