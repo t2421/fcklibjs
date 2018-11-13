@@ -1,74 +1,55 @@
-import Modal from "../src/modal/Modal"
-import {Info} from "../src/modal/Modal"
-const $ = require('jquery');
+import Modal from '../src/modal/Modal'
+import { Info } from '../src/modal/Modal'
+const $ = require('jquery')
 
-
-test("Modal Show test", (done) => {
-
-
-  expect.assertions(2);
-  const modal = new Modal();
-  setHtml();
-  $('.js-modal').on('click',function(this:HTMLElement){
-    modal.on('modalShowComplete',()=>{
-      expect($('.modal__contents').text()).toBe("Dom Inner");
-      done();
+test('Modal Show test', done => {
+  expect.assertions(2)
+  const modal = new Modal()
+  setHtml()
+  $('.js-modal').on('click', function(this: HTMLElement) {
+    modal.on('modalShowComplete', () => {
+      expect($('.modal__contents').text()).toBe('Dom Inner')
+      done()
     })
-    modal.show($(this));
-    
-    expect($('.modal-window').length).toBe(1);
-  
+    modal.show($(this))
+    expect($('.modal-window').length).toBe(1)
   })
-  $('#modal-3').click();
+  $('#modal-3').click()
 })
 
-test("Modal Hide test", (done) => {
-  expect.assertions(1);
-  const modal = new Modal();
-  setHtml();
-  $('.js-modal').on('click',function(this:HTMLElement){
-    modal.show($(this));
-    $('.modal__close').click();
+test('Modal Hide test', done => {
+  expect.assertions(1)
+  const modal = new Modal()
+  setHtml()
+  $('.js-modal').on('click', function(this: HTMLElement) {
+    modal.show($(this))
+    $('.modal__close').click()
   })
-  modal.on('modalCloseComplete',()=>{
-    expect($('.modal-window').length).toBe(0);
-    done();
+  modal.on('modalCloseComplete', () => {
+    expect($('.modal-window').length).toBe(0)
+    done()
   })
-  $('#modal-1').click();
-});
-
-test("Modal Multi init test", (done) => {
-  expect.assertions(3);
-  const modal = new Modal();
-  setHtml();
-  $('.js-modal').on('click',function(this:HTMLElement){
-    modal.on('modalShowComplete',()=>{
-      const info:Info = modal.getInfo();
-      expect($('.modal__contents').text()).toBe("Dom Inner2");
-      expect(info.numView).toBe(3);
-      expect(info.currentIndex).toBe(1);
-      done();
-    })
-    modal.show($(this));  
-  })
-  $('#modal-6').click();
+  $('#modal-1').click()
 })
 
+test('Modal Multi init test', done => {
+  expect.assertions(3)
+  const modal = new Modal()
+  setHtml()
+  $('.js-modal').on('click', function(this: HTMLElement) {
+    modal.on('modalShowComplete', () => {
+      const info: Info = modal.getInfo()
+      expect($('.modal__contents').text()).toBe('Dom Inner2')
+      expect(info.numView).toBe(3)
+      expect(info.currentIndex).toBe(1)
+      done()
+    })
+    modal.show($(this))
+  })
+  $('#modal-6').click()
+})
 
-// test("Modal Ajax test", (done) => {
- 
-//   const modal = new Modal();
-//   setHtml();
-//   $('.js-modal').on('click',function(this:HTMLElement){
-//     modal.on('modalShowComplete',()=>{
-//       done();
-//     })
-//     modal.show($(this));
-//   })
-//   $('#modal-4').click();
-// })
-
-function setHtml(){
+function setHtml() {
   document.body.innerHTML = `
   <a href="#" id="modal-1" class="js-modal" data-type="youtube" data-src="hogehoge">youtube</a>
   <a href="#" id="modal-2" class="js-modal" data-type="image" data-src="hogehoge">image</a>
