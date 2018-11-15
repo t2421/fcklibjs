@@ -1,39 +1,34 @@
 import ModalView from './ModalView';
-import axiosbase from 'axios';
-const axios = axiosbase.create({
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    responseType: 'json',
-})
+import axios from 'axios';
 
 const $ = require('jquery');
 export default class AjaxModalView implements ModalView{
     private config:any;
     constructor(config:any){
         this.config = config;
-        console.log(__dirname);
     }
 
     getView():Promise<string>{
+        
         return new Promise(
         (resolve: (value?:string) => void, reject: () => void) => {
+            
             axios
             .get(this.config.src)
-            .then(res => {
+            .then((res:any) => {
+               console.log(res.data);
                 const html = this.getHtml(res.data);
                 resolve(html);
             })
-            .catch(error => {
+            .catch((error:any) => {
+                
                 resolve("error");
             })
-
+            console.log("call")
         });
     }
 
     private getHtml(data:any):string{
-        return `
-            <div>${data.test}</div>
-        `;
+        return `${data.name}`;
     }
 }

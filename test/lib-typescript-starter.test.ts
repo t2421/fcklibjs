@@ -1,5 +1,7 @@
 import Modal from '../src/modal/Modal'
 import { Info } from '../src/modal/Modal'
+
+
 const $ = require('jquery')
 
 test('Modal Show test', done => {
@@ -47,6 +49,22 @@ test('Modal Multi init test', done => {
     modal.show($(this))
   })
   $('#modal-6').click()
+})
+
+test('AjaxModal Show test', done => {
+  
+  
+  const modal = new Modal()
+  setHtml()
+  $('.js-modal').on('click', function(this: HTMLElement) {
+    modal.on('modalShowComplete', () => {
+      expect($('.modal__contents').text()).toBe('Bob')
+      done()
+    })
+    modal.show($(this))
+    expect($('.modal-window').length).toBe(1)
+  })
+  $('#modal-4').click()
 })
 
 function setHtml() {
