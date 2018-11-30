@@ -1,7 +1,6 @@
 import Modal from '../src/modal/Modal'
 import { Info } from '../src/modal/Modal'
 
-
 const $ = require('jquery')
 
 test('Modal Show test', done => {
@@ -52,8 +51,6 @@ test('Modal Multi init test', done => {
 })
 
 test('AjaxModal Show test', done => {
-  
-  
   const modal = new Modal()
   setHtml()
   $('.js-modal').on('click', function(this: HTMLElement) {
