@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/fcklibjs.ts',
     output:{
         path:`${__dirname}/dist`,
-        filename:'main.js',
+        filename:'fcklib.js',
         //umd形式での出力
         library: "fcklib",
         libraryTarget: "umd"
