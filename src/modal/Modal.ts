@@ -11,6 +11,13 @@ export const MODAL_OVERFLOW = 'is-modal-overflow-window'
 export const MODAL_BODY = 'modal__body'
 export const MODAL_CONTENTS = 'modal__contents'
 
+export const MODAL_SHOW_START = 'modalShowStart'
+export const MODAL_SHOW_COMPLETE = 'modalShowComplete'
+export const MODAL_VIEW_INIT_START = 'modalViewInitStart'
+export const MODAL_VIEW_INIT_COMPLETE = 'modalViewInitComplete'
+export const MODAL_CLOSE_START = 'modalCloseStart'
+export const MODAL_CLOSE_COMPLETE = 'modalCloseComplete'
+
 export default class Modal extends EventEmitter {
   protected _modalViewList: Array<ModalView> = []
   protected _loading: Loading = new Loading()
@@ -21,7 +28,7 @@ export default class Modal extends EventEmitter {
   }
 
   public show(dom: JQuery) {
-    this.emit('modalShowStart')
+    this.emit(MODAL_SHOW_START)
     const config = ModalViewFactory.createConfig(dom)
 
     if (config.group) {
@@ -54,7 +61,7 @@ export default class Modal extends EventEmitter {
   }
 
   public hide() {
-    this.emit('modalCloseStart')
+    this.emit(MODAL_CLOSE_START)
     this._hideBehavior()
   }
 
@@ -67,14 +74,14 @@ export default class Modal extends EventEmitter {
   private _setViewItemList(isGroup: boolean): void {}
   private async _setView() {
     $(`.${MODAL_BODY}`).append(this._loading.getHtml())
-    this.emit('modalViewInitStart')
+    this.emit(MODAL_VIEW_INIT_START)
     const html = await this._modalViewList[this._currentIndex].getView()
-    this.emit('modalViewInitComplete')
+    this.emit(MODAL_VIEW_INIT_COMPLETE)
     $(`.${MODAL_CONTENTS}`).html(html)
     this._loading.remove()
     this._resize(0, $(window).height())
     setTimeout(() => {
-      this.emit('modalShowComplete')
+      this.emit(MODAL_SHOW_COMPLETE)
     }, 200)
   }
 
@@ -86,7 +93,7 @@ export default class Modal extends EventEmitter {
   protected _destroy() {
     $(`.${MODAL_WRAPPER}`).remove()
     this._modalViewList = []
-    this.emit('modalCloseComplete')
+    this.emit(MODAL_CLOSE_COMPLETE)
   }
 
   private _getContainer(): string {
