@@ -4,6 +4,13 @@ import Loading from './Loading'
 import { EventEmitter } from 'events'
 
 const $ = require('jquery')
+
+export const MODAL_WRAPPER = 'modal-window'
+export const MODAL_CLOSE = 'modal__close'
+export const MODAL_OVERFLOW = 'is-modal-overflow-window'
+export const MODAL_BODY = 'modal__body'
+export const MODAL_CONTENTS = 'modal__contents'
+
 export default class Modal extends EventEmitter {
   protected _modalViewList: Array<ModalView> = []
   protected _loading: Loading = new Loading()
@@ -31,10 +38,10 @@ export default class Modal extends EventEmitter {
 
     $('body').append(this._getContainer())
 
-    $(document).on('click', '.modal__close', (e: Event) => {
+    $(document).on('click', `.${MODAL_CLOSE}`, (e: Event) => {
       this.hide()
     })
-    $(document).on('click', '.modal-window', (e: Event) => {
+    $(document).on('click', `.${MODAL_WRAPPER}`, (e: Event) => {
       if (e.currentTarget === e.target) {
         this.hide()
       }
@@ -59,11 +66,11 @@ export default class Modal extends EventEmitter {
   }
   private _setViewItemList(isGroup: boolean): void {}
   private async _setView() {
-    $('.modal__body').append(this._loading.getHtml())
+    $(`.${MODAL_BODY}`).append(this._loading.getHtml())
     this.emit('modalViewInitStart')
     const html = await this._modalViewList[this._currentIndex].getView()
     this.emit('modalViewInitComplete')
-    $('.modal__contents').html(html)
+    $(`.${MODAL_CONTENTS}`).html(html)
     this._loading.remove()
     this._resize(0, $(window).height())
     setTimeout(() => {
@@ -77,17 +84,17 @@ export default class Modal extends EventEmitter {
     }, 100)
   }
   protected _destroy() {
-    $('.modal-window').remove()
+    $(`.${MODAL_WRAPPER}`).remove()
     this._modalViewList = []
     this.emit('modalCloseComplete')
   }
 
   private _getContainer(): string {
     var html = `
-		<div class="modal-window">
-            <div class="modal__body">
-                <a href="#" class="modal__close">close</a>
-				<div class="modal__contents"></div>
+		<div class="${MODAL_WRAPPER}">
+            <div class="${MODAL_BODY}">
+                <a href="#" class="${MODAL_CLOSE}">close</a>
+				<div class="${MODAL_CONTENTS}"></div>
 			</div>
 		</div>`
     return html
@@ -97,11 +104,11 @@ export default class Modal extends EventEmitter {
     this._isOverflowHeight(h)
   }
   private _isOverflowHeight(h: Number) {
-    if ($('.modal__body').outerHeight() > $(window).height()) {
-      $('html').addClass('is-modal-overflow-window')
+    if ($(`.${MODAL_BODY}`).outerHeight() > $(window).height()) {
+      $('html').addClass(MODAL_OVERFLOW)
       return true
     } else {
-      $('html').removeClass('is-modal-overflow-window')
+      $('html').removeClass(MODAL_OVERFLOW)
       return false
     }
   }
