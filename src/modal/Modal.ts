@@ -34,6 +34,15 @@ export default class Modal extends EventEmitter {
     $(document).on('click', '.modal__close', (e: Event) => {
       this.hide()
     })
+    $(document).on('click', '.modal-window', (e: Event) => {
+      if (e.currentTarget === e.target) {
+        this.hide()
+      }
+    })
+    $(window).on('resize.fcklibjs:modal', e => {
+      this._resize($(window).width(), $(window).height())
+    })
+
     this._setView()
   }
 
@@ -56,7 +65,7 @@ export default class Modal extends EventEmitter {
     this.emit('modalViewInitComplete')
     $('.modal__contents').html(html)
     this._loading.remove()
-
+    this._resize(0, $(window).height())
     setTimeout(() => {
       this.emit('modalShowComplete')
     }, 200)
@@ -82,6 +91,19 @@ export default class Modal extends EventEmitter {
 			</div>
 		</div>`
     return html
+  }
+
+  private _resize(w: Number = 0, h: Number = 0) {
+    this._isOverflowHeight(h)
+  }
+  private _isOverflowHeight(h: Number) {
+    if ($('.modal__body').outerHeight() > $(window).height()) {
+      $('html').addClass('is-modal-overflow-window')
+      return true
+    } else {
+      $('html').removeClass('is-modal-overflow-window')
+      return false
+    }
   }
 }
 
